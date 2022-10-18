@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Set;
 
 @RestController
-@RequestMapping("/manager")
+@RequestMapping("/api/manager")
 @RequiredArgsConstructor
 public class ManagerController {
 

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/chef")
+@RequestMapping("/api/chef")
 @RequiredArgsConstructor
 public class ChefController {
 

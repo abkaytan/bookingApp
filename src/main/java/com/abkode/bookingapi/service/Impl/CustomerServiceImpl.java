@@ -10,6 +10,7 @@ import com.abkode.bookingapi.service.CustomerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -58,14 +59,20 @@ public class CustomerServiceImpl implements CustomerService {
     public Reservation makeReservation(ReservationDTO reservationDTO) {
 
         Reservation reservation = new Reservation();
-        reservation.setCustomersId(reservationDTO.getCustomerId());
+        reservation.setCustomersId(reservationDTO.getCustomersId());
         reservation.setEntryDate(reservationDTO.getEntryDate());
         reservation.setEndDate(reservationDTO.getEndDate());
+        reservation.setStatus(reservationDTO.getStatus());
         reservation.setNumberOfPeople(reservationDTO.getNumberOfPeople());
         reservation.setCustomer(customerRepository.findById(reservation.getCustomersId()).get());
 
         return reservationRepository.save(reservation);
 
+    }
+
+    @Override
+    public List<Reservation> showReservation (Integer customerId) {
+        return reservationRepository.findAllByCustomersId(customerId);
     }
 
     @Override
@@ -92,5 +99,10 @@ public class CustomerServiceImpl implements CustomerService {
         Customer customer = customerRepository.findById(customerId).get();
         Bill billResult = customer.paysBill();
         return billRepository.save(billResult);
+    }
+
+    @Override
+    public List<Customer> findAll() {
+        return customerRepository.findAll();
     }
 }

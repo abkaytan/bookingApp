@@ -10,8 +10,9 @@ import java.sql.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ReservationDTO {
-    private Integer customerId;
+    private Integer customersId;
     private Date entryDate;
     private Date endDate;
     private Integer numberOfPeople;
+    private String status;
 }

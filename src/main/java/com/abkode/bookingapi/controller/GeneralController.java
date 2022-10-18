@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-@RequestMapping("/general")
+@RequestMapping("/api/general")
 @RequiredArgsConstructor
 public class GeneralController {
 

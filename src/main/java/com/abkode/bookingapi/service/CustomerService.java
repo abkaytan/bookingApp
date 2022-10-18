@@ -8,6 +8,8 @@ import com.abkode.bookingapi.model.FoodItem;
 import com.abkode.bookingapi.model.Reservation;
 import com.abkode.bookingapi.request.customer.tasks.OrderingFoodItem;
 
+import java.util.List;
+
 public interface CustomerService {
     Customer saveCustomer(CustomerDTO customerDTO);
 
@@ -20,4 +22,8 @@ public interface CustomerService {
     Reservation checkOut(Integer customerId, Integer roomNumber);
 
     Bill payBill(Integer customerId);
+
+    List<Customer> findAll();
+
+    List<Reservation> showReservation (Integer customerId);
 }

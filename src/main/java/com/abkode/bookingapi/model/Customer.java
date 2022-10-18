@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
@@ -28,6 +29,8 @@ public class Customer {
     private String name;
     private String address;
     private Integer phoneNumber;
+    private String email;
+    private String password;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "manager_id",
@@ -46,6 +49,12 @@ public class Customer {
     @JsonIgnore
     @OneToMany(mappedBy = "customer")
     private Set<Bill> bills;
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "users_roles",
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+    private Collection<Role> roles;
 
     public Reservation checkIn() {
         reservation.setStatus("Check in");

@@ -8,10 +8,18 @@ import com.abkode.bookingapi.repository.*;
 import com.abkode.bookingapi.request.customer.tasks.OrderingFoodItem;
 import com.abkode.bookingapi.service.CustomerService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -22,13 +30,17 @@ public class CustomerServiceImpl implements CustomerService {
     private final ReservationRepository reservationRepository;
     private final BillRepository billRepository;
     private final RoomRepository roomRepository;
+    private final BCryptPasswordEncoder passwordEncoder;
 
     @Override
     public Customer saveCustomer(CustomerDTO customerDTO) {
         Customer customer = new Customer();
         customer.setName(customerDTO.getName());
         customer.setAddress(customerDTO.getAddress());
+        customer.setEmail(customerDTO.getEmail());
+        customer.setPassword(passwordEncoder.encode(customerDTO.getPassword()));
         customer.setPhoneNumber(customerDTO.getPhoneNumber());
+        customer.setRoles(Arrays.asList(new Role("ROLE_USER")));
 
         return customerRepository.save(customer);
     }
@@ -104,5 +116,23 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public List<Customer> findAll() {
         return customerRepository.findAll();
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        Customer customer = customerRepository.findByEmail(email);
+
+        if(customer == null){
+            throw new UsernameNotFoundException("Invalid Username or Password!");
+        }
+
+        return new org.springframework.security.core.userdetails.User(
+                customer.getEmail(),
+                customer.getPassword(),
+                mapRolesToAuthorities(customer.getRoles()));
+    }
+
+    private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles){
+        return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
     }
 }

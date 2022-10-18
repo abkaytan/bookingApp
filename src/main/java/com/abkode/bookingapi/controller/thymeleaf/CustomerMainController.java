@@ -21,6 +21,10 @@ public class CustomerMainController {
     private final CustomerServiceImpl customerServiceImpl;
     private final ReservationRepository reservationRepository;
 
+    @GetMapping("/customer/login")
+    public String login(){
+        return "customer/login";
+    }
 
     @GetMapping("/customer/index")
     public String home(Model theModel) {

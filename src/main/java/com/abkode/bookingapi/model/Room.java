@@ -37,7 +37,10 @@ public class Room {
     private HouseKeeper houseKeeper;
 
 
-    /*@JsonIgnore
-    @OneToMany(mappedBy = "room")
-    private List<Reservation> reservationsList;*/
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "reservation_id",
+            referencedColumnName = "id")
+    private Reservation reservation;
+
+
 }

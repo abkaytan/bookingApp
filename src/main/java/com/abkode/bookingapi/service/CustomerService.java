@@ -18,9 +18,9 @@ public interface CustomerService extends UserDetailsService {
 
     Reservation makeReservation(ReservationDTO reservationDTO);
 
-    Reservation checkIn(Integer customerId);
+    Reservation checkIn(Integer reservationId);
 
-    Reservation checkOut(Integer customerId, Integer roomNumber);
+    Reservation checkOut(Integer reservationId);
 
     Bill payBill(Integer customerId);
 

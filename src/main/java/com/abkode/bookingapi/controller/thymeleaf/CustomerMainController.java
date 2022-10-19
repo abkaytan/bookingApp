@@ -1,6 +1,7 @@
 package com.abkode.bookingapi.controller.thymeleaf;
 
 import com.abkode.bookingapi.dto.ReservationDTO;
+import com.abkode.bookingapi.model.Customer;
 import com.abkode.bookingapi.model.Reservation;
 import com.abkode.bookingapi.repository.ReservationRepository;
 import com.abkode.bookingapi.request.customer.tasks.OrderingFoodItem;
@@ -35,24 +36,22 @@ public class CustomerMainController {
 
     @GetMapping("/customer/reservation/{id}")
     public String showUserReservationList(@PathVariable int id, Model theModel){
-        List<Reservation> reservation = customerServiceImpl.showReservation(id);
-        theModel.addAttribute("reservations", reservation);
+        List<Reservation> reservationList = customerServiceImpl.showReservation(id);
+        theModel.addAttribute("reservations", reservationList);
         return "customer/reservation";
     }
 
-    @GetMapping("/customer/checkIn/{customersId}")
-    public String checkIn(@PathVariable int customersId){
-        Reservation reservation = customerServiceImpl.checkIn(customersId);
+    @GetMapping("/customer/checkIn/{reservationId}")
+    public String checkIn(@PathVariable Integer reservationId){
+        Reservation reservation = customerServiceImpl.checkIn(reservationId);
         Integer result = reservation.getCustomersId();
         return "redirect:/customer/reservation/"+result;
     }
 
-    @GetMapping("/customer/checkOut/{customersId}")
-    public String checkOut(@PathVariable int customersId){
-        Reservation reservation = reservationRepository.findReservationByCustomerId(customersId);
-        reservation.setStatus("Check Out");
-        Integer result = reservation.getCustomersId();
-        reservationRepository.save(reservation);
+    @GetMapping("/customer/checkOut/{reservationId}")
+    public String checkOut(@PathVariable int reservationId){
+        Reservation reservation = customerServiceImpl.checkOut(reservationId);
+        Integer result = reservation.getCustomer().getId();
         return "redirect:/customer/reservation/"+result;
     }
 

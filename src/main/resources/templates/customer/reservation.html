@@ -34,8 +34,8 @@
             <td th:text="${reservation.endDate}"></td>
             <td th:text="${reservation.numberOfPeople}"></td>
             <td th:text="${reservation.status}"></td>
-            <td><a th:href="@{/customer/checkIn/{customersId}(customersId=${reservation.customersId})}" class="btn btn-primary"><i class="fas fa-user-edit"></i></a></td>
-            <td><a th:href="@{/customer/checkOut/{customersId}(customersId=${reservation.customersId})}" class="btn btn-danger"><i class="fa fa-user-times"></i></a></td>
+            <td><a th:href="@{/customer/checkIn/{reservationId}(reservationId=${reservation.id})}" class="btn btn-primary"><i class="fas fa-user-edit"></i></a></td>
+            <td><a th:href="@{/customer/checkOut/{reservationId}(reservationId=${reservation.id})}" class="btn btn-danger"><i class="fa fa-user-times"></i></a></td>
             <td><a th:href="@{/customer/order_food}" class="btn btn-primary"><i class="fas fa-plus-circle"></i></a></td>
         </tr>
         </tbody>

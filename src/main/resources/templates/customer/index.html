@@ -30,19 +30,20 @@
 <table class="table">
     <thead>
     <tr>
+        <th>Id</th>
         <th>Name</th>
         <th>Address</th>
         <th>Phone Number</th>
         <th>Reservation</th>
-        <th>Order Food</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="customer: ${customers}">
+        <td th:text="${customer.id}"></td>
         <td th:text="${customer.name}"></td>
         <td th:text="${customer.address}"></td>
         <td th:text="${customer.phoneNumber}"></td>
-        <td><a th:href="@{/customer/reservation/{id}(id=${customer.id})}" class="btn btn-danger"><i class="fa fa-user-times"></i></a></td>
+        <td><a th:href="@{/customer/reservation/{id}(id=${customer.id})}" class="btn btn-primary"><i class="fas fa-user-edit"></i></a></td>
     </tr>
     </tbody>
 </table>

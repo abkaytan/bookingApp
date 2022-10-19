@@ -10,4 +10,5 @@ import lombok.NoArgsConstructor;
 public class BookingRoom {
     private Integer reservationId;
     private Integer roomNumber;
+    private Integer customerId;
 }

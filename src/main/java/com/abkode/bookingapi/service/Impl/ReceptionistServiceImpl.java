@@ -50,16 +50,25 @@ public class ReceptionistServiceImpl implements ReceptionistService {
 
     @Override
     public Room bookRoom(BookingRoom bookingRoom) {
-        Optional<Reservation> reservation = reservationRepository.findById(bookingRoom.getReservationId());
+        Reservation reservation = reservationRepository.findById(bookingRoom.getReservationId()).get();
+        Customer customer = customerRepository.findById(bookingRoom.getCustomerId()).get();
+
+        customer.getReservationList().add(reservation);
+
         Receptionist receptionist = new Receptionist();
         Room room = new Room();
 
-        Room roomResult = receptionist.bookRoom(reservation.get(), room, bookingRoom);
-        reservation.get().setStatus(bookingRoom.getRoomNumber() + ". room is booked");
-//        reservation.get().setCustomer(customerRepository.findById(reservation.get().getCustomersId()).get());
-        reservationRepository.save(reservation.get());
+        Room roomResult = receptionist.bookRoom(reservation, room, bookingRoom);
+        Room roomResult2 = roomRepository.save(roomResult);
 
-        return roomRepository.save(roomResult);
+        reservation.setStatus(bookingRoom.getRoomNumber() + ". room is booked");
+        reservation.setRoom(roomResult);
+        reservation.setCustomer(customer);
+
+        reservationRepository.save(reservation);
+        customerRepository.save(customer);
+
+        return roomResult2;
     }
 
     @Override

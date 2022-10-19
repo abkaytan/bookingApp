@@ -38,15 +38,15 @@ public class CustomerController {
         return new ResponseEntity<>(reservationResult, HttpStatus.OK);
     }
 
-    @GetMapping("/check_in/{customerId}")
-    public ResponseEntity<Reservation> checkIn (@PathVariable Integer customerId) {
-        Reservation reservationResult = customerServiceImpl.checkIn(customerId);
+    @GetMapping("/check_in/{reservationId}")
+    public ResponseEntity<Reservation> checkIn (@PathVariable Integer reservationId) {
+        Reservation reservationResult = customerServiceImpl.checkIn(reservationId);
         return new ResponseEntity<>(reservationResult, HttpStatus.OK);
     }
 
-    @GetMapping("/check_out/{customerId}/room/{roomNumber}")
-    public ResponseEntity<Reservation> checkOut (@PathVariable Integer customerId, @PathVariable Integer roomNumber) {
-        Reservation reservationResult = customerServiceImpl.checkOut(customerId, roomNumber);
+    @GetMapping("/check_out/{reservationId}")
+    public ResponseEntity<Reservation> checkOut (@PathVariable Integer reservationId) {
+        Reservation reservationResult = customerServiceImpl.checkOut(reservationId);
         return new ResponseEntity<>(reservationResult, HttpStatus.OK);
     }
 

@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 @Data
@@ -43,8 +44,8 @@ public class Customer {
     private List<FoodItem> foodItemList;
 
     @JsonIgnore
-    @OneToOne(mappedBy = "customer")
-    private Reservation reservation;
+    @OneToMany(mappedBy = "customer")
+    private List<Reservation> reservationList;
 
     @JsonIgnore
     @OneToMany(mappedBy = "customer")
@@ -56,14 +57,28 @@ public class Customer {
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
     private Collection<Role> roles;
 
-    public Reservation checkIn() {
-        reservation.setStatus("Check in");
-        return reservation;
+    public Reservation checkIn(Integer reservationId) {
+        Reservation reservationResult = new Reservation();
+        for (Reservation r: reservationList) {
+            if(Objects.equals(r.getId(), reservationId)){
+                r.setStatus("Check In");
+                reservationResult = r;
+                break;
+            }
+        }
+        return reservationResult;
     }
 
-    public Reservation checkOut() {
-        reservation.setStatus("Check out");
-        return reservation;
+    public Reservation checkOut(Integer reservationId) {
+        Reservation reservationResult = new Reservation();
+        for (Reservation r: reservationList) {
+            if(Objects.equals(r.getId(), reservationId)){
+                r.setStatus("Check Out");
+                reservationResult = r;
+                break;
+            }
+        }
+        return reservationResult;
     }
 
     public Bill paysBill() {

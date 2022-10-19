@@ -1,6 +1,7 @@
 package com.abkode.bookingapi.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -26,14 +27,19 @@ public class Reservation {
     private Date entryDate;
     private Date endDate;
     private Integer numberOfPeople;
-    private String status; // only can be changed by receptionist - available or bookedRoom maybe checkIn checkOut can be added here to create bill
+    private String status;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "customer_id")
+
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "customer_id",
+            referencedColumnName = "id")
     private Customer customer;
 
-    /*@ManyToOne
-    @JoinColumn(name = "room_id",
-            referencedColumnName = "id")
-    private Room room;*/
+
+    @JsonIgnore
+    @OneToOne(mappedBy = "reservation")
+    private Room room;
+
+
 }

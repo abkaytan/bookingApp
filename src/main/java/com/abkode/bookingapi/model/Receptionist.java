@@ -64,6 +64,7 @@ public class Receptionist {
         room.setEntryDate(reservation.getEntryDate());
         room.setEndDate(reservation.getEndDate());
         room.setNumberOfPeople(reservation.getNumberOfPeople());
+        room.setReservation(reservation);
 
         return room;
     }
@@ -82,27 +83,5 @@ public class Receptionist {
 
         return bill;
     }
-    public void acceptCustomerFeedback() {}
 
-    /*  public Reservation checkRoomAvailability(Reservation reservation, List<Room> roomList) {
-        Date checkDate = reservation.getEntryDate();
-        int days = reservation.getNumberOfDays();
-        Calendar c = Calendar.getInstance();
-        c.setTime(checkDate);
-        for (Room r: roomList) {
-            for (int i = 0; i < days; i++){
-                c.add(Calendar.DATE, i);
-                Date d = new Date(c.getTimeInMillis());
-                if(r.getFullDateList().contains(d)){
-                    reservation.setStatus("NOT AVAILABLE");
-                    break;
-                }
-                if(reservation.getStatus() == null) {
-                    reservation.setStatus(r.getId() + ".ROOM AVAILABLE"); //müsait olan oda olunca oda numarası ile available yazdır yeni bir if kontrolü daha lazım
-                    break;
-                }
-            }
-        }
-        return reservation;
-    }*/
 }

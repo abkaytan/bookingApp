@@ -88,22 +88,25 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Reservation checkIn(Integer customerId) {
-        Optional<Customer> customer = customerRepository.findById(customerId);
-        Reservation reservation = customer.get().checkIn();
-        return reservationRepository.save(reservation);
+    public Reservation checkIn(Integer reservationId) {
+        Reservation reservation = reservationRepository.findById(reservationId).get();
+        Reservation reservationResult = reservation.getCustomer().checkIn(reservationId);
+        return reservationRepository.save(reservationResult);
     }
 
     @Override
-    public Reservation checkOut(Integer customerId, Integer roomNumber) {
-        Optional<Customer> customer = customerRepository.findById(customerId);
+    public Reservation checkOut(Integer reservationId) {
 
-        Room room = roomRepository.findByRoomNumber(roomNumber);
-        room.setStatus(false);
-        roomRepository.save(room);
+        Reservation reservation = reservationRepository.findById(reservationId).get();
 
-        Reservation reservation = customer.get().checkOut();
-        return reservationRepository.save(reservation);
+        Room roomResult = reservation.getRoom();
+        roomResult.setStatus(false);
+
+        Reservation reservationResult = reservation.getCustomer().checkOut(reservationId);
+
+        roomRepository.save(roomResult);
+
+        return reservationRepository.save(reservationResult);
     }
 
     @Override

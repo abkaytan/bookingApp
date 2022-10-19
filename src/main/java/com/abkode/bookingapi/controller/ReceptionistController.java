@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/api/receptionist")
 @RequiredArgsConstructor
@@ -31,7 +33,7 @@ public class ReceptionistController {
     }
 
     @PostMapping("/book_room")
-    public ResponseEntity<Room> bookRoom (@RequestBody BookingRoom bookingRoom) {
+    public ResponseEntity<Room> bookRoom (@RequestBody @Valid BookingRoom bookingRoom) {
         Room roomResult = receptionistServiceImpl.bookRoom(bookingRoom);
         return new ResponseEntity<>(roomResult, HttpStatus.OK);
     }

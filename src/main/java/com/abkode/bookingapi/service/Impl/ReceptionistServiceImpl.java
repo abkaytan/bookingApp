@@ -6,7 +6,6 @@ import com.abkode.bookingapi.model.*;
 import com.abkode.bookingapi.repository.*;
 import com.abkode.bookingapi.request.receptionist.tasks.BookingRoom;
 import com.abkode.bookingapi.service.ReceptionistService;
-import io.swagger.models.auth.In;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -30,21 +29,16 @@ public class ReceptionistServiceImpl implements ReceptionistService {
         receptionist.setName(receptionistDTO.getName());
         receptionist.setPhoneNumber(receptionistDTO.getPhoneNumber());
         receptionist.setAddress(receptionistDTO.getAddress());
-
         return receptionistRepository.save(receptionist);
     }
 
     @Override
     public Reservation checkRoomAvailability(Integer reservationId) {
-
         Optional<Reservation> reservation = reservationRepository.findById(reservationId);
         Receptionist receptionist = new Receptionist();
-
         Integer numberOfPeople = reservation.get().getNumberOfPeople();
         List<Room> roomList = roomRepository.findAllByNumberOfPeople(numberOfPeople);
-
         Reservation reservationResult = receptionist.checkRoomAvailability(reservation.get(), roomList);
-
         return reservationRepository.save(reservationResult);
     }
 
@@ -52,14 +46,12 @@ public class ReceptionistServiceImpl implements ReceptionistService {
     public Room bookRoom(BookingRoom bookingRoom) {
         Reservation reservation = reservationRepository.findById(bookingRoom.getReservationId()).get();
         Customer customer = customerRepository.findById(bookingRoom.getCustomerId()).get();
-
         customer.getReservationList().add(reservation);
-
         Receptionist receptionist = new Receptionist();
-        Room room = new Room();
 
+        Room room = new Room();
         Room roomResult = receptionist.bookRoom(reservation, room, bookingRoom);
-        Room roomResult2 = roomRepository.save(roomResult);
+        Room roomResultAfterSave = roomRepository.save(roomResult);
 
         reservation.setStatus(bookingRoom.getRoomNumber() + ". room is booked");
         reservation.setRoom(roomResult);
@@ -68,7 +60,7 @@ public class ReceptionistServiceImpl implements ReceptionistService {
         reservationRepository.save(reservation);
         customerRepository.save(customer);
 
-        return roomResult2;
+        return roomResultAfterSave;
     }
 
     @Override

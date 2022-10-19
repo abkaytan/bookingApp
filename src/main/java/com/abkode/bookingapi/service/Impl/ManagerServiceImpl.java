@@ -33,7 +33,6 @@ public class ManagerServiceImpl implements ManagerService {
         manager.setName(managerDTO.getName());
         manager.setLocation(managerDTO.getLocation());
         manager.setPhoneNo(managerDTO.getPhoneNo());
-
         return managerRepository.save(manager);
     }
 
@@ -44,7 +43,6 @@ public class ManagerServiceImpl implements ManagerService {
             Customer customer = customerRepository.findById(customerId).get();
             customer.setManager(manager.get());
             Customer customerResult = customerRepository.save(customer);
-
             manager.get().getCustomerSet().add(customerResult);
             managerRepository.save(manager.get());
             return customerResult;

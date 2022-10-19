@@ -1,6 +1,5 @@
 package com.abkode.bookingapi.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -8,8 +7,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.sql.Date;
-import java.util.ArrayList;
-import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -41,6 +38,5 @@ public class Room {
     @JoinColumn(name = "reservation_id",
             referencedColumnName = "id")
     private Reservation reservation;
-
 
 }

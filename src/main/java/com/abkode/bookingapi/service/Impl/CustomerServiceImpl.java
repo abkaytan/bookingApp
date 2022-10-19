@@ -41,7 +41,6 @@ public class CustomerServiceImpl implements CustomerService {
         customer.setPassword(passwordEncoder.encode(customerDTO.getPassword()));
         customer.setPhoneNumber(customerDTO.getPhoneNumber());
         customer.setRoles(Arrays.asList(new Role("ROLE_USER")));
-
         return customerRepository.save(customer);
     }
 
@@ -51,17 +50,11 @@ public class CustomerServiceImpl implements CustomerService {
 
         if(customer.isPresent()){
             Customer customerResult = customer.get();
-
             customerResult.orderFoodItem(orderingFoodItem);
-
-
             FoodItem foodResult = orderingFoodItem.toFoodItem();
             foodResult.setCustomer(customerResult);
-
             customerRepository.save(customerResult);
-
             return foodItemRepository.save(foodResult);
-
         } else {
             throw new IdMissMatchException("there is no user with this ID");
         }
@@ -69,7 +62,6 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Reservation makeReservation(ReservationDTO reservationDTO) {
-
         Reservation reservation = new Reservation();
         reservation.setCustomersId(reservationDTO.getCustomersId());
         reservation.setEntryDate(reservationDTO.getEntryDate());
@@ -77,9 +69,7 @@ public class CustomerServiceImpl implements CustomerService {
         reservation.setStatus(reservationDTO.getStatus());
         reservation.setNumberOfPeople(reservationDTO.getNumberOfPeople());
         reservation.setCustomer(customerRepository.findById(reservation.getCustomersId()).get());
-
         return reservationRepository.save(reservation);
-
     }
 
     @Override
@@ -96,16 +86,11 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Reservation checkOut(Integer reservationId) {
-
         Reservation reservation = reservationRepository.findById(reservationId).get();
-
         Room roomResult = reservation.getRoom();
         roomResult.setStatus(false);
-
         Reservation reservationResult = reservation.getCustomer().checkOut(reservationId);
-
         roomRepository.save(roomResult);
-
         return reservationRepository.save(reservationResult);
     }
 
@@ -124,11 +109,9 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Customer customer = customerRepository.findByEmail(email);
-
         if(customer == null){
             throw new UsernameNotFoundException("Invalid Username or Password!");
         }
-
         return new org.springframework.security.core.userdetails.User(
                 customer.getEmail(),
                 customer.getPassword(),

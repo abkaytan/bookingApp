@@ -13,18 +13,11 @@ import java.util.List;
 
 public interface CustomerService extends UserDetailsService {
     Customer saveCustomer(CustomerDTO customerDTO);
-
     FoodItem orderFood(OrderingFoodItem orderingFoodItem);
-
     Reservation makeReservation(ReservationDTO reservationDTO);
-
     Reservation checkIn(Integer reservationId);
-
     Reservation checkOut(Integer reservationId);
-
     Bill payBill(Integer customerId);
-
     List<Customer> findAll();
-
     List<Reservation> showReservation (Integer customerId);
 }

@@ -10,8 +10,6 @@ import java.util.List;
 
 public interface HouseKeeperService {
     HouseKeeper saveHouseKeeper(HouseKeeperDTO houseKeeperDTO);
-
     List<Room> findDirtyRoomsAndAddToHouseKeeperList(Integer houseKeeperId);
-
     Room makeRoomClean(CleaningRoom cleaningRoom);
 }

@@ -11,10 +11,7 @@ import java.util.Set;
 
 public interface ManagerService {
     Manager saveManager(ManagerDTO managerDTO);
-
     Customer assignCustomerToManager(Integer managerId, Integer customerId);
-
     List<CustomerFeedBack> recordComplaints();
-
     Inventory purchaseInventory(Integer inventoryId);
 }

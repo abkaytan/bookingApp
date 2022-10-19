@@ -16,6 +16,7 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class HouseKeeperServiceImpl implements HouseKeeperService {
+
     private final HouseKeeperRepository houseKeeperRepository;
     private final RoomRepository roomRepository;
 
@@ -24,7 +25,6 @@ public class HouseKeeperServiceImpl implements HouseKeeperService {
         HouseKeeper houseKeeper = new HouseKeeper();
         houseKeeper.setName(houseKeeperDTO.getName());
         houseKeeper.setLocation(houseKeeperDTO.getLocation());
-
         return houseKeeperRepository.save(houseKeeper);
     }
 

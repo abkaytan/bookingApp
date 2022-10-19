@@ -23,7 +23,7 @@ public class Role {
     private String name;
 
     public Role(String name) {
-        super();  // --> super metodu niye çağırıldı ??
+        super();
         this.name = name;
     }
 }

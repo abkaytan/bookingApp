@@ -10,4 +10,5 @@ import lombok.NoArgsConstructor;
 public class InventoryDTO {
     private String type;
     private Boolean status;
+    private Integer managerId;
 }

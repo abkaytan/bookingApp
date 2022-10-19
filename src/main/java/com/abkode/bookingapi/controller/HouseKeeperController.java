@@ -26,9 +26,9 @@ public class HouseKeeperController {
         return new ResponseEntity<>(houseKeeperResult, HttpStatus.OK);
     }
 
-    @GetMapping("/find_dirty_rooms")
-    public ResponseEntity<List<Room>> findDirtyRooms() {
-        List<Room> dirtyRooms = houseKeeperServiceImpl.findDirtyRooms();
+    @GetMapping("/find_dirty_rooms/{houseKeeperId}")
+    public ResponseEntity<List<Room>> findDirtyRooms(@PathVariable Integer houseKeeperId) {
+        List<Room> dirtyRooms = houseKeeperServiceImpl.findDirtyRoomsAndAddToHouseKeeperList(houseKeeperId);
         return new ResponseEntity<>(dirtyRooms, HttpStatus.OK);
     }
 

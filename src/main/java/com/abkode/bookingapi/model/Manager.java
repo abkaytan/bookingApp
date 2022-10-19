@@ -36,13 +36,20 @@ public class Manager {
 
     @JsonIgnore
     @OneToMany(mappedBy = "manager")
-    private List<Inventory> inventorySet;
+    private List<Inventory> inventoryList;
 
 
-    public Inventory purchaseInventory (Inventory inventory) {
-
-        return inventory;
+    public Inventory purchaseInventory (Integer inventoryId) {
+        Inventory inventoryResult = new Inventory();
+        for (Inventory i: inventoryList) {
+            if(Objects.equals(i.getId(), inventoryId)){
+                i.setStatus(true);
+                inventoryResult = i;
+                break;
+            }
+        }
+        return inventoryResult;
     }
-    public void manageStaff () {}
+
 
 }

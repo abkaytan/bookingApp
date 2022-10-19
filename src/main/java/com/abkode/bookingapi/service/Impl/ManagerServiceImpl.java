@@ -60,27 +60,10 @@ public class ManagerServiceImpl implements ManagerService {
 
     @Override
     public Inventory purchaseInventory(Integer inventoryId) {
-        Inventory inventory = inventoryRepository.findById(inventoryId).get();
-        Manager manager = new Manager();
-        return manager.purchaseInventory(inventory);
+        Optional<Inventory> inventory = inventoryRepository.findById(inventoryId);
+        if (inventory.isPresent()){
+            return inventoryRepository.save(inventory.get().getManager().purchaseInventory(inventoryId));
+        } else {throw new IdMissMatchException("there is no inventory with this Id");}
     }
 
-    /*public FoodItem orderFood(OrderingFoodItem orderingFoodItem) {
-        Optional<Customer> customer = customerRepository.findById(orderingFoodItem.getCustomerId());
-
-        if(customer.isPresent()){
-
-            FoodItem foodItem = new FoodItem();
-            foodItem.setName(orderingFoodItem.getFoodName());
-            foodItem.setCustomer(customer.get());
-            FoodItem foodResult = foodItemRepository.save(foodItem);
-
-            customer.get().getFoodItemList().add(foodResult);
-            customerRepository.save(customer.get());
-            return foodItemRepository.findById(foodResult.getId()).get();
-
-        } else {
-            throw new IdMissMatchException("there is no user with this ID");
-        }
-    }*/
 }

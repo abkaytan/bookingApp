@@ -1,9 +1,7 @@
 package com.abkode.bookingapi.controller.thymeleaf;
 
 import com.abkode.bookingapi.dto.ReservationDTO;
-import com.abkode.bookingapi.model.Customer;
 import com.abkode.bookingapi.model.Reservation;
-import com.abkode.bookingapi.repository.ReservationRepository;
 import com.abkode.bookingapi.request.customer.tasks.OrderingFoodItem;
 import com.abkode.bookingapi.service.Impl.CustomerServiceImpl;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +18,6 @@ import java.util.List;
 public class CustomerMainController {
 
     private final CustomerServiceImpl customerServiceImpl;
-    private final ReservationRepository reservationRepository;
 
     @GetMapping("/customer/login")
     public String login(){
@@ -33,12 +30,23 @@ public class CustomerMainController {
         return "customer/index";
     }
 
-
     @GetMapping("/customer/reservation/{id}")
     public String showUserReservationList(@PathVariable int id, Model theModel){
         List<Reservation> reservationList = customerServiceImpl.showReservation(id);
         theModel.addAttribute("reservations", reservationList);
         return "customer/reservation";
+    }
+
+    @GetMapping("/new_reservation")
+    public String newReservationPage(ReservationDTO reservationDTO){
+        return "customer/make-reservation";
+    }
+
+    @PostMapping("/customer/make-reservation")
+    public String makeReservation (ReservationDTO reservationDTO, Model theModel){
+        Reservation reservation = customerServiceImpl.makeReservation(reservationDTO);
+        int result = reservation.getCustomersId();
+        return "redirect:/customer/reservation/"+result;
     }
 
     @GetMapping("/customer/checkIn/{reservationId}")
@@ -67,15 +75,4 @@ public class CustomerMainController {
         return "redirect:/customer/reservation/"+result;
     }
 
-    @GetMapping("/new_reservation")
-    public String newReservationPage(ReservationDTO reservationDTO){
-        return "customer/make-reservation";
-    }
-
-    @PostMapping("/customer/make-reservation")
-    public String makeReservation (ReservationDTO reservationDTO, Model theModel){
-        Reservation reservation = customerServiceImpl.makeReservation(reservationDTO);
-        int result = reservation.getCustomersId();
-        return "redirect:/customer/reservation/"+result;
-    }
 }

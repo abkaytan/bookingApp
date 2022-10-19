@@ -11,6 +11,7 @@ import javax.persistence.*;
 import java.sql.Date;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 @Data
@@ -39,7 +40,7 @@ public class Receptionist {
 
         if(roomList.size()>0) {
             for (Room r : roomList) {
-                if (r.getNumberOfPeople() == reservation.getNumberOfPeople()) {  // alternative way try it: if(Objects.equals(r.getNumberOfPeople(), reservation.getNumberOfPeople()))
+                if (Objects.equals(r.getNumberOfPeople(), reservation.getNumberOfPeople())) {
                     if ((r.getEntryDate().compareTo(reservation.getEntryDate())) < 0
                             && (r.getEntryDate().compareTo(reservation.getEndDate())) < 0 ) {
                         reservation.setStatus(r.getRoomNumber() + ". room is available at this date");
@@ -49,14 +50,12 @@ public class Receptionist {
                         reservation.setStatus(r.getRoomNumber() + ". room is available at this date");
                         break;
                     }
-                    // if ile oda numarası kontrolü yapılabilir
                     reservation.setStatus(r.getRoomNumber() + ". room is not available at this date, " + (r.getRoomNumber()+1) + ". room is available" );
                 }
             }
         } else {
-            reservation.setStatus("all rooms are available");
+            reservation.setStatus(reservation.getNumberOfPeople() + " person rooms are available");
         }
-
         return reservation;
     }
     public Room bookRoom(Reservation reservation, Room room, BookingRoom bookingRoom) {

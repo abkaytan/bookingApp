@@ -7,7 +7,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.util.List;
+import java.util.Objects;
 
 @Data
 @NoArgsConstructor
@@ -27,11 +28,18 @@ public class HouseKeeper {
 
     @JsonIgnore
     @OneToMany(mappedBy = "houseKeeper")
-    private Set<Room> rooms;
+    private List<Room> roomList;
 
-    public Room cleanRoom (Room room) {
-        room.setStatus(true);
-        return room;
+    public Room cleanRoom (Integer roomNumber) {
+        Room roomResult = new Room();
+        for (Room r: roomList) {
+            if(Objects.equals(r.getRoomNumber(), roomNumber)) {
+                r.setStatus(true);
+                roomResult = r;
+                break;
+            }
+        }
+        return roomResult;
     }
 
 }

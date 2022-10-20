@@ -35,11 +35,11 @@ public class ChefServiceImpl implements ChefService {
 
     @Override
     public List<FoodItem> getFoodList() {
-
-        return chefRepository.findAll().stream()
+        return foodItemRepository.findAll();
+        /*return chefRepository.findAll().stream()
                 .map(Chef::getFoodItems)
                 .flatMap(Collection::stream)
-                .collect(Collectors.toList());
+                .collect(Collectors.toList());*/
     }
 
     @Override

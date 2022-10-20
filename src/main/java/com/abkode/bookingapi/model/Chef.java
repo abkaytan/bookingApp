@@ -35,7 +35,4 @@ public class Chef {
     )
     private List<FoodItem> foodItems;
 
-    public void takeOrders () {}
-
-
 }

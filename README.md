@@ -55,7 +55,7 @@ UML DIAGRAM :
 
 ![](src/main/resources/img/Swagger.png)
 
-* Swagger Jpa Relations Örnek Gösterim : 
+* Swagger Jpa Relationship Örnek Gösterim : 
 
 ![](src/main/resources/img/JpaRelationsRespnsBody.png)
 ```

@@ -13,7 +13,7 @@
 * Readme içine Uml diyagramını, H2Console arayüzünü, Swagger arayüzünü, 
 müşteriler için geliştirdiğim basit bir Thymeleaf arayüzünü ekledim. 
 * Spring Security ile uygulama güvenliğini oluşturdum. 
-* Servis teslerini JUnit5 ile yaptım.
+* Servis teslerini JUnit5 ile yaptım. Servislerim için %80 method covarage sağladım. 
 * Uygulamadan kısaca bahsetmem gerekirse Entity'ler ve verileri almak için Dto'larını 
 oluşturdum. İşlemleri genel olarak servis katmanı içinde yapsam da sınıflara özgü olan 
 metotlarımı ilgili Entity'ler içinde oluşturdum. Jpa Relationship'lerlerinden OneToMany,

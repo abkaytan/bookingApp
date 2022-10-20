@@ -9,10 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.Collection;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Data
 @NoArgsConstructor
@@ -100,5 +97,16 @@ public class Customer {
         this.foodItemList.add(foodItem);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Customer customer = (Customer) o;
+        return Objects.equals(email, customer.email);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(email);
+    }
 }

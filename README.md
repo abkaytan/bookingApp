@@ -20,7 +20,9 @@ metotlarımı ilgili Entity'ler içinde oluşturdum. Jpa Relationship'lerlerinde
 ManyToOne, OneToOne ilişkilerinin hepsinin projemde olmasını istediğim için Entity'lerimi 
 doğru yapıdaki ilişkiler ile birbirine bağlamaya çalıştım. 
 
-
+***
+* Tanıtım videosunu ilgili linkten izleyebilirsiniz
+* https://www.loom.com/share/b640fc78d0d74e24b375fb8b8a09877e
 ***
 UML DIAGRAM : 
 ![](src/main/resources/img/UmlDiagram.png)

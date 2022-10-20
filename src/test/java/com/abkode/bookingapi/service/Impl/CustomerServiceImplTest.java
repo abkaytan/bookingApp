@@ -3,10 +3,7 @@ package com.abkode.bookingapi.service.Impl;
 import com.abkode.bookingapi.dto.CustomerDTO;
 import com.abkode.bookingapi.dto.ReservationDTO;
 import com.abkode.bookingapi.exceptions.IdMissMatchException;
-import com.abkode.bookingapi.model.Customer;
-import com.abkode.bookingapi.model.FoodItem;
-import com.abkode.bookingapi.model.Reservation;
-import com.abkode.bookingapi.model.Room;
+import com.abkode.bookingapi.model.*;
 import com.abkode.bookingapi.repository.*;
 import com.abkode.bookingapi.request.customer.tasks.OrderingFoodItem;
 import org.junit.jupiter.api.Test;
@@ -150,7 +147,16 @@ class CustomerServiceImplTest {
 
     @Test
     void payBill() {
+        Bill bill = Bill.builder().billNumber(1).billStatus(false).amount(400).build();
+        Customer customer = Customer.builder().bills(Set.of(bill)).id(1).build();
+        when(customerRepository.findById(1)).thenReturn(Optional.of(customer));
+        customerService.payBill(1);
 
+        ArgumentCaptor<Bill> billArgumentCaptor = ArgumentCaptor.forClass(Bill.class);
+        verify(billRepository).save(billArgumentCaptor.capture());
+        Bill billResult = billArgumentCaptor.getValue();
+
+        assertEquals(billResult.getBillStatus(), true);
     }
 
     @Test

@@ -46,6 +46,8 @@ UML DIAGRAM :
 * H2Database :
 
 ![](src/main/resources/img/H2Console.png)
+```
+```
 
 * Swagger :
 
@@ -54,14 +56,22 @@ UML DIAGRAM :
 * Swagger Jpa Relations Örnek Gösterim : 
 
 ![](src/main/resources/img/JpaRelationsRespnsBody.png)
+```
+```
 
 * Thymeleaf Ekranları (Müşteriler için): 
 
 ![](src/main/resources/img/LoginPage.png)
+***
 ![](src/main/resources/img/RegisterPage.png)
+***
 ![](src/main/resources/img/CustomerIndexPage.png)
+***
 ![](src/main/resources/img/NewReservationPage.png)
+***
 ![](src/main/resources/img/ReservationPage.png)
+***
 ![](src/main/resources/img/ReservationAfterRecpt.png)
+***
 ![](src/main/resources/img/NewFoodOrder.png)
 

@@ -23,7 +23,7 @@ doğru yapıdaki ilişkiler ile birbirine bağlamaya çalıştım.
 
 ***
 UML DIAGRAM : 
-![](src/main/resources/img/Uml Diagram.png)
+![](src/main/resources/img/UmlDiagram.png)
 ***
 
 ### Rest Controller
